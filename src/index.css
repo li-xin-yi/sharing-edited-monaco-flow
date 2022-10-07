@@ -1,0 +1,40 @@
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+.Flow {
+  height: 100%;
+}
+
+.Flow {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.react-flow__node-monacoNode {
+    background: #eee;
+    border: 1px solid #555;
+    border-radius: 5px;
+  }
+
+.yRemoteSelection {
+    background-color: rgb(250, 129, 0, .4);
+}
+.yRemoteSelectionHead {
+    position: absolute;
+    border-left: orange solid 2px;
+    border-top: orange solid 2px;
+    border-bottom: orange solid 2px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.yRemoteSelectionHead::after {
+    position: absolute;
+    content: ' ';
+    border: 3px solid orange;
+    border-radius: 4px;
+    left: -4px;
+    top: -5px;
+}

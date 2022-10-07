@@ -1,0 +1,49 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "monaco-editor": "^0.34.0",
+    "monaco-editor-webpack-plugin": "^7.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-monaco-editor": "^0.50.1",
+    "react-scripts": "5.0.1",
+    "reactflow": "^11.1.0",
+    "reflect-metadata": "^0.1.13",
+    "y-monaco": "^0.1.4",
+    "y-presence": "^1.0.6",
+    "y-websocket": "^1.4.5",
+    "yjs": "^13.5.41"
+  },
+  "scripts": {
+    "start": "PORT=4000 react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.2.1"
+  }
+}
