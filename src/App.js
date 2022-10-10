@@ -1,6 +1,4 @@
 import React from 'react';
-
-import { createRoot } from "react-dom/client";
 import Flow from './Flow';
 
 const userColors = [ '#30bced',

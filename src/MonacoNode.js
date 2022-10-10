@@ -4,14 +4,12 @@ import { WebsocketProvider } from 'y-websocket'
 import { MonacoBinding } from 'y-monaco'
 import MonacoEditor from  'react-monaco-editor';
 
-const StyleElement = document.createElement("style");
-
 
 function MonacoNode({data}) {
 
     const ydoc = new Y.Doc()
     const ytext = ydoc.getText('monaco')
-    const provider = new WebsocketProvider('wss://demos.yjs.dev', data.id, ydoc)
+    const provider = new WebsocketProvider('ws://localhost:1234', data.id, ydoc)
     const awareness = provider.awareness
 
 

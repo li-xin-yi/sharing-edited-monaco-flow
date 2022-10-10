@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -9,6 +9,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import MonacoNode from './MonacoNode';
+import useNodesStateSynced, {nodesMap} from './useNodesStateSynced';
 
 
 import { getNodes, edges as initialEdges } from './initial-elements';
@@ -18,9 +19,20 @@ const Flow = (props) => {
   const nodeTypes = useMemo(() => ({ monacoNode: MonacoNode }), []);
   console.log('Flow props', props);
   const initialNodes = getNodes(props.user, props.color);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, onNodesChange] = useNodesStateSynced(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
+
+  const InitHandler = () => {
+    if(nodesMap.size === 0){
+    nodes.forEach((node) => {
+      if(!nodesMap.has(node.id)) {
+        nodesMap.set(node.id, node);
+      }
+    }
+  );
+  }
+};
 
   return (
     <ReactFlow
@@ -30,6 +42,8 @@ const Flow = (props) => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      onInit={InitHandler}
+
       fitView
       attributionPosition="top-right"
     >

@@ -16,6 +16,7 @@
     "reflect-metadata": "^0.1.13",
     "y-monaco": "^0.1.4",
     "y-presence": "^1.0.6",
+    "y-webrtc": "^10.2.3",
     "y-websocket": "^1.4.5",
     "yjs": "^13.5.41"
   },
