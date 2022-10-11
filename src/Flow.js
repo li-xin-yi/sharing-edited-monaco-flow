@@ -17,7 +17,6 @@ import { getNodes, edges as initialEdges } from './initial-elements';
 
 const Flow = (props) => {
   const nodeTypes = useMemo(() => ({ monacoNode: MonacoNode }), []);
-  console.log('Flow props', props);
   const initialNodes = getNodes(props.user, props.color);
   const [nodes, onNodesChange] = useNodesStateSynced(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);

@@ -11,9 +11,6 @@ const isNodeResetChange = (change) => change.type === 'reset';
 
 function useNodesStateSynced(nodeList) {
     const [nodes, setNodes] = useState(nodeList);
-    console.log("nodeList", nodeList);
-    console.log(nodesMap);
-    console.log("nodes", nodes)
 
     const onNodesChanges = useCallback((changes) => {
         const nodes = Array.from(nodesMap.values());
@@ -22,8 +19,6 @@ function useNodesStateSynced(nodeList) {
         changes.forEach((change) => {
             if (!isNodeAddChange(change) && !isNodeResetChange(change)) {
                 const node = nextNodes.find((n) => n.id === change.id);
-                console.log("change", node);
-
 
                 if (node && !isNodeRemoveChange(change)) {
                     nodesMap.set(change.id, node);
@@ -32,7 +27,6 @@ function useNodesStateSynced(nodeList) {
                 }
             }
         });
-        console.log(nodesMap);
     }, []);
 
     useEffect(() => {

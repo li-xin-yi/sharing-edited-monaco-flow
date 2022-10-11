@@ -2,7 +2,6 @@ import React from 'react';
 import { MarkerType } from 'reactflow';
 
 export const getNodes = (user, color) => {
-  console.log('getNodes', user, color);
   return([
 {id : '8'
 , data : {label : 'Code:', id : 'prefix-8', user: user, color: color}, type: 'monacoNode', position: { x: 0, y: 0},},

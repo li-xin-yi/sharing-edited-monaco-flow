@@ -40,5 +40,13 @@ Then you can visit it on http://localhost:4000/
 
 ## Todo
 
-- too slow
+- too slow (because it renders all reactflow element every time if any movement occurs)
 - display awareness info (which user is editing now?)
+
+### Progress
+
+Awareness: can show cursors in different colors and display the associate user name when you put your cursor on in a code editor.
+
+![](./display-user-name.png)
+
+But it is still too slow and too ugly to inject styles for each `clientID` every time.

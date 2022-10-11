@@ -21,6 +21,7 @@ body,
 
 .yRemoteSelection {
     background-color: rgb(250, 129, 0, .4);
+    opacity: 0.4;
 }
 .yRemoteSelectionHead {
     position: absolute;
@@ -31,10 +32,20 @@ body,
     box-sizing: border-box;
 }
 .yRemoteSelectionHead::after {
+    content: '';
     position: absolute;
-    content: ' ';
-    border: 3px solid orange;
+    text-align: center;
+    color: white;
     border-radius: 4px;
-    left: -4px;
-    top: -5px;
+    bottom: 110%;
+    left: 5px;
+    font-family: 'Segoe UI';
+    opacity: 0;
+    transition: all 0.2s;
+}
+.yRemoteSelectionHead:hover::after{
+  content: 'after';
+  background-color: orange;
+  box-shadow: 0 0 0 4px orange;
+  opacity: 1;
 }
