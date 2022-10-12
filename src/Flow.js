@@ -10,14 +10,20 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import MonacoNode from './MonacoNode';
 import useNodesStateSynced, {nodesMap} from './useNodesStateSynced';
-
-
 import { getNodes, edges as initialEdges } from './initial-elements';
+import {provider} from './ydoc';
+
+// const onDragOver = (event) => {
+//   event.preventDefault();
+//   event.dataTransfer.dropEffect = 'move';
+//   console.log('dragging');
+// };
 
 
 const Flow = (props) => {
   const nodeTypes = useMemo(() => ({ monacoNode: MonacoNode }), []);
-  const initialNodes = getNodes(props.user, props.color);
+  provider.awareness.setLocalStateField('user', { name: props.user, color: props.color });
+  const initialNodes = getNodes();
   const [nodes, onNodesChange] = useNodesStateSynced(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
@@ -32,6 +38,9 @@ const Flow = (props) => {
   );
   }
 };
+  const onSelectionDragStart = (event) => {
+    console.log('dragging');
+  }
 
   return (
     <ReactFlow
@@ -42,6 +51,7 @@ const Flow = (props) => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onInit={InitHandler}
+      onSelectionDragStart={onSelectionDragStart}
 
       fitView
       attributionPosition="top-right"

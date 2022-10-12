@@ -1,7 +1,6 @@
 import { Handle, Position } from 'reactflow';
-import * as Y from 'yjs'
-import { WebsocketProvider } from 'y-websocket'
 import { MonacoBinding } from 'y-monaco'
+import {ydoc, provider} from './ydoc';
 import MonacoEditor from 'react-monaco-editor';
 
 
@@ -12,23 +11,20 @@ const seen = {};
 
 function MonacoNode({ data }) {
 
-    const ydoc = new Y.Doc()
-    const ytext = ydoc.getText('monaco')
-    const provider = new WebsocketProvider('ws://localhost:1234', data.id, ydoc)
+    const ytext = ydoc.getText('monaco'+data.id)
     const awareness = provider.awareness
 
 
     function editorDidMount(editor, monaco) {
 
         const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */(editor.getModel()), new Set([editor]), awareness)
-        provider.connect();
-        awareness.setLocalStateField('user', { name: data.user, color: data.color })
 
-        // console.log(data.user, "add", awareness.clientID)
         awareness.on("update", (change) => {
             const states = awareness.getStates();
+            // console.log(change);
             const styles = document.createElement("style");
-            change.added.forEach((clientID) => {
+            const nodes = change.added.concat(change.updated);
+            nodes.forEach((clientID) => {
                 if (states.get(clientID).hasOwnProperty('user')) {
                     const user = states.get(clientID).user
                     if (!seen.hasOwnProperty(clientID)) {
@@ -40,7 +36,8 @@ function MonacoNode({ data }) {
                         border-bottom: ${user.color} solid 2px;
                         height: 100%;
                         box-sizing: border-box;}`);
-                        styles.append(`.yRemoteSelectionHead-${clientID}:hover::after { content: "${user.name}"; background-color: ${user.color}; box-shadow: 0 0 0 4px ${user.color}; opacity: 1; }`);
+                        styles.append(`.yRemoteSelectionHead-${clientID}:hover::after { content: "${user.name}"; background-color: ${user.color}; box-shadow: 0 0 0 4px ${user.color}; border: 2px solid ${user.color}; 
+                        opacity: 1; }`);
                     }
                 }
             });
@@ -59,7 +56,7 @@ function MonacoNode({ data }) {
             <MonacoEditor
                 width="400"
                 height="200"
-                language="javascript"
+                language="python"
                 theme="vs-light"
                 options={{
                     selectOnLineNumbers: true,

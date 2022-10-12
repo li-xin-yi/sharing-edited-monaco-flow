@@ -36,16 +36,18 @@ body,
     position: absolute;
     text-align: center;
     color: white;
-    border-radius: 4px;
-    bottom: 110%;
-    left: 5px;
+    border : 2px solid orange;
+    border-radius: 3px;
+    bottom: 100%;
+    /* left: 5px; */
     font-family: 'Segoe UI';
     opacity: 0;
     transition: all 0.2s;
+    /* transform: translate(-50%, -10px); */
 }
 .yRemoteSelectionHead:hover::after{
   content: 'after';
   background-color: orange;
-  box-shadow: 0 0 0 4px orange;
+  box-shadow: 0 0 0 0px orange;
   opacity: 1;
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { applyNodeChanges} from "reactflow";
-import ydoc from './ydoc';
+import {ydoc, provider} from './ydoc';
 
 export const nodesMap = ydoc.getMap('node');
 
@@ -17,7 +17,8 @@ function useNodesStateSynced(nodeList) {
 
         const nextNodes = applyNodeChanges(changes, nodes);
         changes.forEach((change) => {
-            if (!isNodeAddChange(change) && !isNodeResetChange(change)) {
+            console.log(change);
+            if (!isNodeAddChange(change) && !isNodeResetChange(change) && change.type!=='select') {
                 const node = nextNodes.find((n) => n.id === change.id);
 
                 if (node && !isNodeRemoveChange(change)) {

@@ -25,7 +25,7 @@ yarn
 ### Launch a WebSocket Server
 
 ```
-PORT=1234 HOST=0.0.0.0 node ./node_modules/y-websocket/bin/server.js
+PORT=1234 node ./node_modules/y-websocket/bin/server.js
 ```
 
 ### Launch the Demo Website

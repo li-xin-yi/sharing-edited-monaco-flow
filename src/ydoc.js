@@ -1,11 +1,12 @@
 import {Doc} from 'yjs';
-// import {WebrtcProvider} from 'y-webrtc';
+import {WebrtcProvider} from 'y-webrtc';
 import { WebsocketProvider } from 'y-websocket';
 
-const ydoc = new Doc();
-// const provider = new WebrtcProvider('layout-demos', ydoc, {signaling: ['ws://localhost:1235']});
-const provider = new WebsocketProvider('ws://localhost:1234', 'layout', ydoc);
+export const ydoc = new Doc();
+export const provider = new WebrtcProvider('react-flow-demo-test', ydoc);
 
-provider.connect();
 
-export default ydoc;
+// It becomes much faster to use webRTC than webSocket, I also don't know why. comment out the following lines to use webSocket.
+// const provider = new WebsocketProvider('wss://yjs.demo.dev', 'test-layout', ydoc);
+
+// provider.connect();
