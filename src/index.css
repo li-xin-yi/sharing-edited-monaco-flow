@@ -15,8 +15,9 @@ body,
 
 .react-flow__node-monacoNode {
     background: #eee;
-    border: 1px solid #555;
-    border-radius: 5px;
+    /* border: 2px solid #555; */
+    /* padding: 10px; */
+    border-radius: 1px;
   }
 
 .yRemoteSelection {

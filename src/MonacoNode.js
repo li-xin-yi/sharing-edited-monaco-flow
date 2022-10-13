@@ -36,7 +36,7 @@ function MonacoNode({ data }) {
                         border-bottom: ${user.color} solid 2px;
                         height: 100%;
                         box-sizing: border-box;}`);
-                        styles.append(`.yRemoteSelectionHead-${clientID}:hover::after { content: "${user.name}"; background-color: ${user.color}; box-shadow: 0 0 0 4px ${user.color}; border: 2px solid ${user.color}; 
+                        styles.append(`.yRemoteSelectionHead-${clientID}:hover::after { content: "${user.name}"; background-color: ${user.color}; box-shadow: 0 0 0 2px ${user.color}; border: 1px solid ${user.color}; 
                         opacity: 1; }`);
                     }
                 }
@@ -45,14 +45,24 @@ function MonacoNode({ data }) {
         });
     }
 
-
-
+    const dragHandleStyle = {
+        display: 'inline-block',
+        width: 18,
+        height: 18,
+        backgroundColor: 'teal',
+        // marginLeft: 100,
+        borderRadius: '50%',
+        float: 'right',
+      };
 
 
     return (<>
         <Handle type="target" position={Position.Top} style={{ background: '#555' }} />
-        <div>
-            <label htmlFor="text">Code:</label>
+        <div style={{padding:"10px"}}>
+            <label style={{ fontFamily: 'Segoe UI'}}
+            >Code: 
+            <span className="monaco-drag-handle" style={dragHandleStyle}></span>
+            </label>
             <MonacoEditor
                 width="400"
                 height="200"

@@ -9,9 +9,9 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import MonacoNode from './MonacoNode';
-import useNodesStateSynced, {nodesMap} from './useNodesStateSynced';
+import useNodesStateSynced, { nodesMap } from './useNodesStateSynced';
 import { getNodes, edges as initialEdges } from './initial-elements';
-import {provider} from './ydoc';
+import { provider } from './ydoc';
 
 // const onDragOver = (event) => {
 //   event.preventDefault();
@@ -29,18 +29,37 @@ const Flow = (props) => {
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
   const InitHandler = () => {
-    if(nodesMap.size === 0){
-    nodes.forEach((node) => {
-      if(!nodesMap.has(node.id)) {
-        nodesMap.set(node.id, node);
+    if (nodesMap.size === 0) {
+      nodes.forEach((node) => {
+        if (!nodesMap.has(node.id)) {
+          nodesMap.set(node.id, node);
+        }
       }
+      );
     }
-  );
-  }
-};
-  const onSelectionDragStart = (event) => {
-    console.log('dragging');
-  }
+  };
+  const onNodeDragStart = useCallback((_, node) => {
+    // console.log('dragging', node.id);
+    const currentNode = nodesMap.get(node.id);
+    if (currentNode) {
+      nodesMap.set(node.id, {
+        ...currentNode,
+        style: { backgroundColor: props.color, opacity: 0.3 },
+      });
+    }
+
+  });
+
+  const onNodeDragStop = useCallback((_, node) => {
+    // console.log('dragging stopped', node.id);
+    const currentNode = nodesMap.get(node.id);
+    if (currentNode) {
+      nodesMap.set(node.id, {
+        ...currentNode,
+        style: { backgroundColor: '#eee', opacity: 1 },
+      });
+    }
+  });
 
   return (
     <ReactFlow
@@ -51,7 +70,8 @@ const Flow = (props) => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onInit={InitHandler}
-      onSelectionDragStart={onSelectionDragStart}
+      onNodeDragStart={onNodeDragStart}
+      onNodeDragStop={onNodeDragStop}
 
       fitView
       attributionPosition="top-right"

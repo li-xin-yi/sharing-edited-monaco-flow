@@ -18,6 +18,7 @@ function useNodesStateSynced(nodeList) {
         const nextNodes = applyNodeChanges(changes, nodes);
         changes.forEach((change) => {
             console.log(change);
+            console.log(nodes);
             if (!isNodeAddChange(change) && !isNodeResetChange(change) && change.type!=='select') {
                 const node = nextNodes.find((n) => n.id === change.id);
 

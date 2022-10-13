@@ -5,16 +5,16 @@ export const getNodes = () => {
   return ([
     {
       id: '8'
-      , data: { label: 'Code:', id: 'prefix-8' }, type: 'monacoNode', position: { x: 0, y: 0 },
+      , data: { label: 'Code:', id: 'prefix-8' }, type: 'monacoNode', position: { x: 0, y: 0 }, dragHandle: '.monaco-drag-handle'
     },
     {
       id: '9'
-      , data: { label: 'Code:', id: 'prefix-9' }, type: 'monacoNode', position: { x: 200, y: 400 }
+      , data: { label: 'Code:', id: 'prefix-9' }, type: 'monacoNode', position: { x: 200, y: 400 }, dragHandle: '.monaco-drag-handle'
     },
 
     {
       id: '10'
-      , data: { label: 'Code:', id: 'prefix-10' }, type: 'monacoNode', position: { x: 600, y: 100 }
+      , data: { label: 'Code:', id: 'prefix-10' }, type: 'monacoNode', position: { x: 600, y: 100 }, dragHandle: '.monaco-drag-handle'
     },
   ]);
 }
