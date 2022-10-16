@@ -9,9 +9,10 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import MonacoNode from './MonacoNode';
+import QuillNode from './QuillNode';
 import useNodesStateSynced, { nodesMap } from './useNodesStateSynced';
 import { getNodes, edges as initialEdges } from './initial-elements';
-import { provider } from './ydoc';
+import {provider } from './ydoc';
 
 // const onDragOver = (event) => {
 //   event.preventDefault();
@@ -21,7 +22,7 @@ import { provider } from './ydoc';
 
 
 const Flow = (props) => {
-  const nodeTypes = useMemo(() => ({ monacoNode: MonacoNode }), []);
+  const nodeTypes = useMemo(() => ({ monacoNode: MonacoNode, quillNode:QuillNode}), []);
   provider.awareness.setLocalStateField('user', { name: props.user, color: props.color });
   const initialNodes = getNodes();
   const [nodes, onNodesChange] = useNodesStateSynced(initialNodes);
@@ -72,7 +73,12 @@ const Flow = (props) => {
       onInit={InitHandler}
       onNodeDragStart={onNodeDragStart}
       onNodeDragStop={onNodeDragStop}
-
+      zoomOnDoubleClick={false}
+      onPaneClick={(event) => {
+        console.log('pane clicked', event);
+      }
+      }
+        
       fitView
       attributionPosition="top-right"
     >
@@ -92,7 +98,7 @@ const Flow = (props) => {
         }}
         nodeBorderRadius={2}
       />
-      <Controls />
+      {/* <Controls onDoubleClick={ (event, element) => {console.log('double click control', element, event);}} /> */}
       <Background color="#aaa" gap={16} />
     </ReactFlow>
   );

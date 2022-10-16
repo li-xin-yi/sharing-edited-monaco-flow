@@ -36,12 +36,14 @@ function MonacoNode({ data }) {
                         border-bottom: ${user.color} solid 2px;
                         height: 100%;
                         box-sizing: border-box;}`);
-                        styles.append(`.yRemoteSelectionHead-${clientID}:hover::after { content: "${user.name}"; background-color: ${user.color}; box-shadow: 0 0 0 2px ${user.color}; border: 1px solid ${user.color}; 
+                        styles.append(`.yRemoteSelectionHead-${clientID}:hover::after { content: "${user.name}"; background-color: ${user.color}; box-shadow: 0 0 0 2px ${user.color}; border: 1px solid ${user.color};
                         opacity: 1; }`);
                     }
                 }
             });
+            if(styles.innerHTML.length > 0) {
             document.head.append(styles);
+            }
         });
     }
 

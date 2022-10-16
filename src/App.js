@@ -21,10 +21,10 @@ class App extends React.Component {
 
     render() {
         return (
-            <React.StrictMode>
+            <>
                 <h3> You are: <span style={{color:this.state.color}}>{this.state.user}</span></h3>
                 <Flow user={this.state.user} color={this.state.color}/>
-            </React.StrictMode>
+            </>
         );
     }  
 }

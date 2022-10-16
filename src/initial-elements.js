@@ -16,6 +16,15 @@ export const getNodes = () => {
       id: '10'
       , data: { label: 'Code:', id: 'prefix-10' }, type: 'monacoNode', position: { x: 600, y: 100 }, dragHandle: '.monaco-drag-handle'
     },
+    {
+      id: '11'
+      , data: { label: 'Text:', id: 'prefix-11' }, type: 'quillNode', position: { x: 700, y: 400 }, dragHandle: '.quill-drag-handle'
+    },
+
+  //   {
+  //     id: '19'
+  //     , data: { label: 'Code:', id: 'prefix-19' }, type: 'monacoNode', position: { x: 850, y: 100 }, dragHandle: '.monaco-drag-handle'
+  //   },
   ]);
 }
 

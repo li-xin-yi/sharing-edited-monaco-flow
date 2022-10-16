@@ -13,12 +13,24 @@ body,
   text-align: center;
 }
 
+/* .quill > .ql-toolbar:first-child {
+  display: none !important;
+} */
+
 .react-flow__node-monacoNode {
     background: #eee;
     /* border: 2px solid #555; */
     /* padding: 10px; */
     border-radius: 1px;
   }
+
+  .react-flow__node-quillNode {
+    background: #eee;
+    /* border: 2px solid #555; */
+    padding: 10px;
+    border-radius: 1px;
+  }
+
 
 .yRemoteSelection {
     background-color: rgb(250, 129, 0, .4);
@@ -38,8 +50,8 @@ body,
     text-align: center;
     color: white;
     border : 2px solid orange;
-    border-radius: 3px;
-    bottom: 100%;
+    border-radius: 2px;
+    /* bottom: 100%; */
     /* left: 5px; */
     font-family: 'Segoe UI';
     opacity: 0;
@@ -52,3 +64,8 @@ body,
   box-shadow: 0 0 0 0px orange;
   opacity: 1;
 }
+
+/* .ql-cursors{
+  z-index: -1;
+  position:relative;
+} */
