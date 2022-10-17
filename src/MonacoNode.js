@@ -2,6 +2,7 @@ import { Handle, Position } from 'reactflow';
 import { MonacoBinding } from 'y-monaco'
 import {ydoc, provider} from './ydoc';
 import MonacoEditor from 'react-monaco-editor';
+import { nodesMap } from './useNodesStateSynced';
 
 
 const seen = {};
@@ -57,13 +58,33 @@ function MonacoNode({ data }) {
         float: 'right',
       };
 
+      const closeHandleStyle = {
+        display: 'inline-block',
+        width: 18,
+        height: 18,
+        backgroundColor: '#C41E3A',
+        // marginLeft: 100,
+        borderRadius: '50%',
+        float: 'right',
+        marginLeft: 8
+      };
+
+    const onDeleteHandle = () => {
+        console.log('delete');
+        nodesMap.delete(data.id);
+    }
+
+    
+
 
     return (<>
         <Handle type="target" position={Position.Top} style={{ background: '#555' }} />
         <div style={{padding:"10px"}}>
             <label style={{ fontFamily: 'Segoe UI'}}
             >Code: 
+            <span className="monaco-close-handle" style={closeHandleStyle} onClick={onDeleteHandle}></span>
             <span className="monaco-drag-handle" style={dragHandleStyle}></span>
+            
             </label>
             <MonacoEditor
                 width="400"

@@ -5,6 +5,7 @@ import ReactQuill,{Quill} from 'react-quill';
 import {ydoc, provider} from './ydoc';
 import { QuillBinding } from 'y-quill'
 import QuillCursors from 'quill-cursors';
+import { nodesMap } from './useNodesStateSynced';
 
 
 const dragHandleStyle = {
@@ -51,6 +52,22 @@ function QuillNode ({ data }) {
         cursors: true
       };
 
+      const closeHandleStyle = {
+        display: 'inline-block',
+        width: 18,
+        height: 18,
+        backgroundColor: '#C41E3A',
+        // marginLeft: 100,
+        borderRadius: '50%',
+        float: 'right',
+        marginLeft: 8
+      };
+
+    const onDeleteHandle = () => {
+        console.log('delete');
+        nodesMap.delete(data.id);
+    }
+
     return (
         <>
             <Handle type="target" position={Position.Top} style={{ background: '#555' }} />
@@ -58,7 +75,11 @@ function QuillNode ({ data }) {
             <label style={{ fontFamily: 'Segoe UI'}}
             >Text: 
              </label>
+
+             <span className="quill-close-handle" style={closeHandleStyle} onClick={onDeleteHandle}></span>
+             
             <span className="quill-drag-handle" style={dragHandleStyle}></span>
+
             <ReactQuill theme="snow" ref={  (el) => { reactQuillRef = el } } modules={modulesRef} style={{backgroundColor:'#fff'}} />
             </div> 
             <Handle type="source" position={Position.Bottom} style={{ bottom: 0, background: '#555'}} />

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { applyNodeChanges} from "reactflow";
+import { applyNodeChanges, getConnectedEdges} from "reactflow";
 import {ydoc, provider} from './ydoc';
+import {edgesMap} from "./useEdgesStateSynced";
 
 export const nodesMap = ydoc.getMap('node');
 
@@ -26,6 +27,9 @@ function useNodesStateSynced(nodeList) {
                     nodesMap.set(change.id, node);
                 } else if (isNodeRemoveChange(change)) {
                     nodesMap.delete(change.id);
+                    const edges = Array.from(edgesMap.values().map((e) => e));
+                    const connectedEdges = getConnectedEdges(node, edges);
+                    connectedEdges.forEach((edge) => edgesMap.delete(edge.id));
                 }
             }
         });
