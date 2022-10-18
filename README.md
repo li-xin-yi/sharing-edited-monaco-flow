@@ -57,6 +57,8 @@ You can delete an existing editor by click on the red button on its top-right.
 
 To add a new editor, you can right-click on any place on the pane and choose the editor type, then it will create a new editor in place.
 
+![](pics/add-new-editors.png)
+
 
 
 
