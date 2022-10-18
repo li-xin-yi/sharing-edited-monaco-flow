@@ -2,21 +2,11 @@ import { Handle, Position } from 'reactflow';
 import 'react-quill/dist/quill.snow.css';
 import React,{useEffect} from 'react';
 import ReactQuill,{Quill} from 'react-quill';
-import {ydoc, provider} from './ydoc';
+import {ydoc, provider} from '../utils/ydoc';
 import { QuillBinding } from 'y-quill'
 import QuillCursors from 'quill-cursors';
-import { nodesMap } from './useNodesStateSynced';
-
-
-const dragHandleStyle = {
-    display: 'inline-block',
-    width: 18,
-    height: 18,
-    backgroundColor: 'teal',
-    // marginLeft: 100,
-    borderRadius: '50%',
-    float: 'right',
-};
+import { nodesMap } from '../utils/useNodesStateSynced';
+import {dragHandleStyle, closeHandleStyle} from '../utils/styles';
 
 Quill.register('modules/cursors', QuillCursors);
 
@@ -33,9 +23,9 @@ function QuillNode ({ data }) {
     useEffect(() => {
         attachQuillRefs();
         const ytext = ydoc.getText('quillx'+data.id);
-        console.log(quillRef, ytext);
+        // console.log(quillRef, ytext);
         const quillBinding = new QuillBinding(ytext, quillRef, provider.awareness);
-        console.log(quillBinding);
+        // console.log(quillBinding);
     }, []);
 
     const modulesRef = {
@@ -50,17 +40,6 @@ function QuillNode ({ data }) {
           ["clean"]
         ],
         cursors: true
-      };
-
-      const closeHandleStyle = {
-        display: 'inline-block',
-        width: 18,
-        height: 18,
-        backgroundColor: '#C41E3A',
-        // marginLeft: 100,
-        borderRadius: '50%',
-        float: 'right',
-        marginLeft: 8
       };
 
     const onDeleteHandle = () => {

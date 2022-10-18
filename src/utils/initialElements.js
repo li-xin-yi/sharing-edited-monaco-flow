@@ -1,6 +1,3 @@
-import React from 'react';
-import { MarkerType } from 'reactflow';
-
 export const nodes =[
     {
       id: '8'

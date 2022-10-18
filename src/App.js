@@ -1,5 +1,5 @@
 import React from 'react';
-import Flow from './Flow';
+import Flow from './components/Flow';
 
 const userColors = [ '#30bced',
 '#6eeb83',

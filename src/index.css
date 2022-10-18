@@ -72,3 +72,31 @@ body,
   z-index: -1;
   position:relative;
 } */
+
+.contextMenu {
+  margin: 0;
+  list-style: none;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.contextMenu > li {
+  cursor: default;
+  font-family: sans-serif;
+  border: 0;
+  padding: 10px 30px 10px 15px;
+  display: flex;
+  align-items: left;
+  /* justify-content: space-between; */
+}
+
+.contextMenu > li > .icon {
+  margin-right: 10px;
+}
+
+.contextMenu > li:hover {
+  background:#f1f3f7;
+  color: #4b00ff;
+}
