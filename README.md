@@ -4,7 +4,7 @@
 
 ### Use Docker
 
-mount this folder with the `app` and port `4000`
+mount this folder with the `app` and port `4141` and `5555`
 
 ```
 docker run -it --rm -v <your-path->sharing-edited-monaco-flow:/app -p 4141:4141 -p 5555:5555 -u 0:0 node:18
