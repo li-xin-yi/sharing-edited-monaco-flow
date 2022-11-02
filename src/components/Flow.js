@@ -16,6 +16,7 @@ import useEdgesStateSynced, { edgesMap } from '../utils/useEdgesStateSynced';
 import { nodes as initialNodes, edges as initialEdges } from '../utils/initialElements';
 import { provider } from '../utils/ydoc';
 import PaneContextMenu from './PaneContextMenu';
+import { useStore } from '../utils/store';
 
 
 export const Flow = (props) => {
@@ -28,6 +29,7 @@ export const Flow = (props) => {
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
   const [points, setPoints] = useState({x:0, y:0})
   const [client, setClient] = useState({x:0, y:0})
+  const setSelectNode = useStore(state => state.setSelectNode);
   // const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
   const InitHandler = (e) => {
@@ -54,6 +56,7 @@ export const Flow = (props) => {
 
   const onPaneContextMenu = (event) => {
     event.preventDefault();
+    setSelectNode(null);
     setShow(true);
     setPoints({ x: event.pageX, y: event.pageY });
     setClient({ x: event.clientX, y: event.clientY });
@@ -71,6 +74,10 @@ export const Flow = (props) => {
 
   });
 
+  const onPaneClick = useCallback((event) => {
+    setSelectNode(null);
+  });
+
   const onNodeDragStop = useCallback((_, node) => {
     // console.log('dragging stopped', node.id);
     const currentNode = nodesMap.get(node.id);
@@ -83,7 +90,9 @@ export const Flow = (props) => {
   });
 
   useEffect(() => {
-    const handleClick = () => setShow(false);
+    const handleClick = () => {
+      setShow(false);
+    };
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
@@ -99,7 +108,11 @@ export const Flow = (props) => {
         type: 'monacoNode',
         position,
         data: { id,  label:'Code'},
-        dragHandle: '.monaco-drag-handle'
+        dragHandle: '.monaco-drag-handle',
+        style: { 
+          width:400,
+          height:200,
+        }
     }
     nodesMap.set(newNode.id, newNode);
   };
@@ -134,6 +147,7 @@ export const Flow = (props) => {
         onNodeDragStop={onNodeDragStop}
         zoomOnDoubleClick={false}
         onPaneContextMenu={onPaneContextMenu}
+        onPaneClick={onPaneClick}
 
         fitView
         attributionPosition="top-right"

@@ -1,16 +1,16 @@
 export const nodes =[
     {
       id: '8'
-      , data: { label: 'Code:', id: '8' }, type: 'monacoNode', position: { x: 0, y: 0 }, dragHandle: '.monaco-drag-handle'
-    },
+      , data: { label: 'Code:', id: '8' }, type: 'monacoNode', position: { x: 0, y: 0 }, style: { width: 400, height: 200 }, dragHandle: '.monaco-drag-handle'
+    }, 
     {
       id: '9'
-      , data: { label: 'Code:', id: '9' }, type: 'monacoNode', position: { x: 200, y: 400 }, dragHandle: '.monaco-drag-handle'
+      , data: { label: 'Code:', id: '9' }, type: 'monacoNode', position: { x: 200, y: 400 }, dragHandle: '.monaco-drag-handle', style: { width: 400, height: 200 }
     },
 
     {
       id: '10'
-      , data: { label: 'Code:', id: '10' }, type: 'monacoNode', position: { x: 600, y: 100 }, dragHandle: '.monaco-drag-handle', deletable: true, 
+      , data: { label: 'Code:', id: '10' }, type: 'monacoNode', position: { x: 600, y: 100 }, dragHandle: '.monaco-drag-handle', deletable: true, style: { width: 400, height: 200 }
     },
     {
       id: '11'

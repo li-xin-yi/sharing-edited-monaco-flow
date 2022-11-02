@@ -1,4 +1,4 @@
-import { Handle, Position } from 'reactflow';
+import { Handle, Position, useReactFlow } from 'reactflow';
 import { MonacoBinding } from 'y-monaco'
 import { ydoc, provider } from '../utils/ydoc';
 import MonacoEditor from 'react-monaco-editor';
@@ -10,18 +10,34 @@ import {
     yRemoteSelectionHeadStyle,
     yRemoteSelectionHeadHoverStyle,
 } from '../utils/styles';
+import { makeMoveable, ResizableProps,Draggable, Resizable, OnResize} from 'react-moveable';
+import { useRef, useEffect} from 'react';
+import { useStore } from '../utils/store';
+
+const Moveable = makeMoveable([Resizable]);
 
 const seen = {};
 
-function MonacoNode({ data }) {
+function MonacoNode({id, data}) {
 
     const ytext = ydoc.getText('monaco' + data.id)
     const awareness = provider.awareness
+    const nodeRef = useRef(null);
+    const resizeRef = useRef(null);
+    const selected = useStore(state => state.selectNode);
+
+    useEffect(() => {
+        nodeRef.current = document.querySelector(`.react-flow__node[data-id="${data.id}"]`);
+        console.log(nodeRef);
+      }, [data.id]);
+    
 
 
     function editorDidMount(editor, monaco) {
 
         const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */(editor.getModel()), new Set([editor]), awareness)
+
+        // window.addEventListener('resize', handleResize);
 
         awareness.on("update", (change) => {
             const states = awareness.getStates();
@@ -42,7 +58,10 @@ function MonacoNode({ data }) {
             if (styles.innerHTML.length > 0) {
                 document.head.append(styles);
             }
+            
         });
+
+        // editor.layout({});
     }
 
     const onDeleteHandle = () => {
@@ -50,28 +69,62 @@ function MonacoNode({ data }) {
         nodesMap.delete(data.id);
     }
 
+    const onResize = (event) => {
+        console.log('resize', event);
+
+
+        if(!nodeRef.current) {return;}
+        if(event.delta[0] )
+        {
+            nodeRef.current.style.width = `${event.width}px`
+            const cur = nodesMap.get(data.id);
+            const style = cur?.style;
+            nodesMap.set(data.id, {...cur, style: {...style, width: event.width}});
+        }
+        if(event.delta[1])
+        {
+            nodeRef.current.style.height = `${event.height}px`
+            const cur = nodesMap.get(data.id);
+            const style = cur?.style;
+            nodesMap.set(data.id, {...cur, style: {...style, height: event.height}});
+        }
+
+        // console.log(nodesMap.get(data.id))
+
+
+    }
+
+    const handleResize = () => this.editor.layout();
+
 
     return (<>
-        <Handle type="target" position={Position.Top} style={{ background: '#555' }} />
-        <div style={{ padding: "10px" }}>
+    <Moveable resizable={(selected===id)} onResize={onResize} target={resizeRef} throttleResize={10} hideDefaultLines={(selected!==id)}/>
+    <div ref={resizeRef} style={{height:'100%'}}>
+        <Handle type="target" position={Position.Top}/>
+        <div style={{ padding: "10px", height:'100%'}}>
             <label style={{ fontFamily: 'Segoe UI' }}
             >Code:
                 <span className="monaco-close-handle" style={closeHandleStyle} onClick={onDeleteHandle}></span>
                 <span className="monaco-drag-handle" style={dragHandleStyle}></span>
 
             </label>
+            <div style={{height:'100%', display: 'flex'}}>
             <MonacoEditor
-                width="400"
-                height="200"
+                height='90%'
                 language="python"
                 theme="vs-light"
                 options={{
                     selectOnLineNumbers: true,
                     minimap: { enabled: false },
+                    automaticLayout: true,
                 }}
-                editorDidMount={editorDidMount} />
+                editorDidMount={editorDidMount}
+                 />
+                </div>
         </div>
         <Handle type="source" position={Position.Bottom} />
+    </div>
+    
     </>)
 
 }

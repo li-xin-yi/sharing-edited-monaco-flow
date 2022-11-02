@@ -2,8 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { applyNodeChanges, getConnectedEdges} from "reactflow";
 import {ydoc, provider} from './ydoc';
 import {edgesMap} from "./useEdgesStateSynced";
+import { useStore } from "./store";
+
 
 export const nodesMap = ydoc.getMap('node');
+
 
 
 const isNodeAddChange = (change) => change.type === 'add';
@@ -12,15 +15,23 @@ const isNodeResetChange = (change) => change.type === 'reset';
 
 function useNodesStateSynced(nodeList) {
     const [nodes, setNodes] = useState(nodeList);
+    const setNodeId = useStore((state) => state.setSelectNode);
+    const selected = useStore((state) => state.selectNode);
 
     const onNodesChanges = useCallback((changes) => {
         const nodes = Array.from(nodesMap.values());
 
         const nextNodes = applyNodeChanges(changes, nodes);
         changes.forEach((change) => {
-            console.log(change);
-            console.log(nodes);
-            if (!isNodeAddChange(change) && !isNodeResetChange(change) && change.type!=='select') {
+            // console.log(change);
+            // console.log(nodes);
+            if (!isNodeAddChange(change) && !isNodeResetChange(change)) {
+                
+                if(change.type === 'select'){
+                    setNodeId(change.id);
+                    return;
+                }
+
                 const node = nextNodes.find((n) => n.id === change.id);
 
                 if (node && !isNodeRemoveChange(change)) {
@@ -32,6 +43,7 @@ function useNodesStateSynced(nodeList) {
                     connectedEdges.forEach((edge) => edgesMap.delete(edge.id));
                 }
             }
+            
         });
     }, []);
 
