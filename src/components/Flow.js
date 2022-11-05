@@ -68,7 +68,7 @@ export const Flow = (props) => {
     if (currentNode) {
       nodesMap.set(node.id, {
         ...currentNode,
-        style: { backgroundColor: props.color, opacity: 0.3 },
+        style: {...currentNode.style, backgroundColor: props.color, opacity: 0.3},
       });
     }
 
@@ -84,7 +84,7 @@ export const Flow = (props) => {
     if (currentNode) {
       nodesMap.set(node.id, {
         ...currentNode,
-        style: { backgroundColor: '#eee', opacity: 1 },
+        style: {...currentNode.style, backgroundColor: '#eee', opacity: 1},
       });
     }
   });

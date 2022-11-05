@@ -71,25 +71,21 @@ function MonacoNode({id, data}) {
 
     const onResize = (event) => {
         console.log('resize', event);
-
-
         if(!nodeRef.current) {return;}
-        if(event.delta[0] )
-        {
-            nodeRef.current.style.width = `${event.width}px`
-            const cur = nodesMap.get(data.id);
-            const style = cur?.style;
-            nodesMap.set(data.id, {...cur, style: {...style, width: event.width}});
-        }
-        if(event.delta[1])
-        {
-            nodeRef.current.style.height = `${event.height}px`
-            const cur = nodesMap.get(data.id);
-            const style = cur?.style;
-            nodesMap.set(data.id, {...cur, style: {...style, height: event.height}});
-        }
 
-        // console.log(nodesMap.get(data.id))
+        const cur = nodesMap.get(id);
+        const style = {...cur?.style};
+        if(event.delta[0] !== 0){
+            nodeRef.current.style.width = `${event.width}px`
+            style.width = event.width;
+        }
+        if(event.delta[1] !== 0){
+            nodeRef.current.style.height = `${event.height}px`
+            style.height = event.height;
+        }
+        nodesMap.set(id, {...cur, style: style});
+
+        console.log(nodesMap.get(id))
 
 
     }
@@ -108,9 +104,7 @@ function MonacoNode({id, data}) {
                 <span className="monaco-drag-handle" style={dragHandleStyle}></span>
 
             </label>
-            <div style={{height:'100%', display: 'flex'}}>
             <MonacoEditor
-                height='90%'
                 language="python"
                 theme="vs-light"
                 options={{
@@ -120,7 +114,6 @@ function MonacoNode({id, data}) {
                 }}
                 editorDidMount={editorDidMount}
                  />
-                </div>
         </div>
         <Handle type="source" position={Position.Bottom} />
     </div>

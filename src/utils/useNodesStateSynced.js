@@ -16,7 +16,7 @@ const isNodeResetChange = (change) => change.type === 'reset';
 function useNodesStateSynced(nodeList) {
     const [nodes, setNodes] = useState(nodeList);
     const setNodeId = useStore((state) => state.setSelectNode);
-    const selected = useStore((state) => state.selectNode);
+    // const selected = useStore((state) => state.selectNode);
 
     const onNodesChanges = useCallback((changes) => {
         const nodes = Array.from(nodesMap.values());
@@ -26,13 +26,16 @@ function useNodesStateSynced(nodeList) {
             // console.log(change);
             // console.log(nodes);
             if (!isNodeAddChange(change) && !isNodeResetChange(change)) {
+
+                const node = nextNodes.find((n) => n.id === change.id);
                 
                 if(change.type === 'select'){
                     setNodeId(change.id);
+                    // console.log(node)
                     return;
                 }
 
-                const node = nextNodes.find((n) => n.id === change.id);
+                
 
                 if (node && !isNodeRemoveChange(change)) {
                     nodesMap.set(change.id, node);

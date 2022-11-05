@@ -25,7 +25,6 @@ body,
     /* border: 2px solid #555; */
     /* padding: 10px; */
     border-radius: 1px;
-    height: 200px;
   }
 
   .react-flow__node-quillNode {
