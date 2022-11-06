@@ -2,7 +2,7 @@ import { Handle, Position } from 'reactflow';
 import 'react-quill/dist/quill.snow.css';
 import React,{useEffect} from 'react';
 import ReactQuill,{Quill} from 'react-quill';
-import {ydoc, provider} from '../utils/ydoc';
+import { useStore, ydoc, provider } from '../utils/store';
 import { QuillBinding } from 'y-quill'
 import QuillCursors from 'quill-cursors';
 import { nodesMap } from '../utils/useNodesStateSynced';

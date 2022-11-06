@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { applyNodeChanges, getConnectedEdges} from "reactflow";
-import {ydoc, provider} from './ydoc';
-import {edgesMap} from "./useEdgesStateSynced";
-import { useStore } from "./store";
+import { edgesMap} from "./useEdgesStateSynced";
+import { useStore, ydoc } from "./store";
+
 
 
 export const nodesMap = ydoc.getMap('node');

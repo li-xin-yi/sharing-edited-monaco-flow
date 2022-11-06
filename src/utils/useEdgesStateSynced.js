@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { applyEdgeChanges} from "reactflow";
-import {ydoc, provider} from './ydoc';
+import {ydoc} from './store';
 
 export const edgesMap = ydoc.getMap('edges');
 

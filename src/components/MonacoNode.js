@@ -1,22 +1,16 @@
 import { Handle, Position, useReactFlow } from 'reactflow';
 import { MonacoBinding } from 'y-monaco'
-import { ydoc, provider } from '../utils/ydoc';
 import MonacoEditor from 'react-monaco-editor';
 import { nodesMap } from '../utils/useNodesStateSynced';
 import {
     dragHandleStyle,
     closeHandleStyle,
-    yRemoteSelectionStyle,
-    yRemoteSelectionHeadStyle,
-    yRemoteSelectionHeadHoverStyle,
 } from '../utils/styles';
-import { makeMoveable, ResizableProps,Draggable, Resizable, OnResize} from 'react-moveable';
+import { makeMoveable, Resizable} from 'react-moveable';
 import { useRef, useEffect} from 'react';
-import { useStore } from '../utils/store';
+import { useStore, ydoc, provider } from '../utils/store';
 
 const Moveable = makeMoveable([Resizable]);
-
-const seen = {};
 
 function MonacoNode({id, data}) {
 
@@ -35,32 +29,7 @@ function MonacoNode({id, data}) {
 
     function editorDidMount(editor, monaco) {
 
-        const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */(editor.getModel()), new Set([editor]), awareness)
-
-        // window.addEventListener('resize', handleResize);
-
-        awareness.on("update", (change) => {
-            const states = awareness.getStates();
-            // console.log(change);
-            const styles = document.createElement("style");
-            const nodes = change.added.concat(change.updated);
-            nodes.forEach((clientID) => {
-                if (states.get(clientID).hasOwnProperty('user')) {
-                    const user = states.get(clientID).user
-                    if (!seen.hasOwnProperty(clientID)) {
-                        seen[clientID] = true;
-                        styles.append(yRemoteSelectionStyle(clientID, user.color));
-                        styles.append(yRemoteSelectionHeadStyle(clientID, user.color));
-                        styles.append(yRemoteSelectionHeadHoverStyle(clientID, user.color, user.name));
-                    }
-                }
-            });
-            if (styles.innerHTML.length > 0) {
-                document.head.append(styles);
-            }
-            
-        });
-
+        const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */(editor.getModel()), new Set([editor]), awareness);
         // editor.layout({});
     }
 
@@ -89,8 +58,6 @@ function MonacoNode({id, data}) {
 
 
     }
-
-    const handleResize = () => this.editor.layout();
 
 
     return (<>

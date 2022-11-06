@@ -14,21 +14,20 @@ import QuillNode from './QuillNode';
 import useNodesStateSynced, { nodesMap } from '../utils/useNodesStateSynced';
 import useEdgesStateSynced, { edgesMap } from '../utils/useEdgesStateSynced';
 import { nodes as initialNodes, edges as initialEdges } from '../utils/initialElements';
-import { provider } from '../utils/ydoc';
 import PaneContextMenu from './PaneContextMenu';
 import { useStore } from '../utils/store';
 
 
-export const Flow = (props) => {
+export const Flow = () => {
   const nodeTypes = useMemo(() => ({ monacoNode: MonacoNode, quillNode: QuillNode }), []);
-  provider.awareness.setLocalStateField('user', { name: props.user, color: props.color });
   const [nodes, onNodesChange] = useNodesStateSynced(initialNodes);
   const [edges, onEdgesChange, onConnect] = useEdgesStateSynced(initialEdges);
-  const [show, setShow] = useState(props.show);
+  const [show, setShow] = useState(false);
   const wrapperRef = React.useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
   const [points, setPoints] = useState({x:0, y:0})
   const [client, setClient] = useState({x:0, y:0})
+  const {user, color} = useStore((state) => state);
   const setSelectNode = useStore(state => state.setSelectNode);
   // const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
@@ -68,7 +67,7 @@ export const Flow = (props) => {
     if (currentNode) {
       nodesMap.set(node.id, {
         ...currentNode,
-        style: {...currentNode.style, backgroundColor: props.color, opacity: 0.3},
+        style: {...currentNode.style, backgroundColor: color, opacity: 0.3},
       });
     }
 
