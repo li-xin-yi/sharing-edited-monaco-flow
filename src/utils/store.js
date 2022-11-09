@@ -27,6 +27,7 @@ export const useStore = create(set => ({
     color: null,
     setUser: (user, color) => set(() => ({ user: user, color: color })),
     clients: new Map(),
+    
     addclients: (clientID, name, color) => set(state => {
         if(!state.clients.has(clientID)) {
             addAwarenessStyle(clientID, color, name);
@@ -39,6 +40,10 @@ export const useStore = create(set => ({
         clients.delete(clientID);
         return {clients: clients}
     }),
+
+    lineNumbers: 'on',
+    flipLineNumbers: () => set((state) => ({ lineNumbers:  state.lineNumbers === 'on' ? 'off' : 'on' })),
+    
 
 }))
 

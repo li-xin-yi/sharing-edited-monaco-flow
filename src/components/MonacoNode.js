@@ -12,18 +12,19 @@ import { useStore, ydoc, provider } from '../utils/store';
 
 const Moveable = makeMoveable([Resizable]);
 
-function MonacoNode({id, data}) {
+function MonacoNode({id}) {
 
-    const ytext = ydoc.getText('monaco' + data.id)
+    const ytext = ydoc.getText('monaco' + id)
     const awareness = provider.awareness
     const nodeRef = useRef(null);
     const resizeRef = useRef(null);
     const selected = useStore(state => state.selectNode);
+    const lineNumbers = useStore(state => state.lineNumbers);
 
     useEffect(() => {
-        nodeRef.current = document.querySelector(`.react-flow__node[data-id="${data.id}"]`);
+        nodeRef.current = document.querySelector(`.react-flow__node[data-id="${id}"]`);
         console.log(nodeRef);
-      }, [data.id]);
+      }, [id]);
     
 
 
@@ -35,7 +36,7 @@ function MonacoNode({id, data}) {
 
     const onDeleteHandle = () => {
         console.log('delete');
-        nodesMap.delete(data.id);
+        nodesMap.delete(id);
     }
 
     const onResize = (event) => {
@@ -76,6 +77,7 @@ function MonacoNode({id, data}) {
                 theme="vs-light"
                 options={{
                     selectOnLineNumbers: true,
+                    lineNumbers: lineNumbers,
                     minimap: { enabled: false },
                     automaticLayout: true,
                 }}
